@@ -1,9 +1,9 @@
 <?php
 
 namespace App;
+
 class GroqChat
 {
-
     public function completion(array $chat_history, string $model, $system): array
     {
         $curl = curl_init();

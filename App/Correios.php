@@ -1,6 +1,7 @@
 <?php
 
 namespace App;
+
 use stdClass;
 
 class Correios
@@ -19,7 +20,7 @@ class Correios
      * Obtém último status de um objeto postado no correios
      * @param string $code Código de rastreio
      **/
-    public function getRealTimeStatus(string $code):stdClass
+    public function getRealTimeStatus(string $code): stdClass
     {
         $url = "https://www.linkcorreios.com.br/?id=$code";
         $this->HttpRequest->addURL($url, $code);
@@ -47,7 +48,7 @@ class Correios
      * Obtém a data do último registro armazenado na base de dados
      * @param string $code Código de rastreio dos correios
     **/
-    public function getLastRegisteredStatus(string $code):string
+    public function getLastRegisteredStatus(string $code): string
     {
         $code = trim($code);
         $sql = "SELECT last_status FROM correios WHERE code = :code ORDER BY id DESC LIMIT 1";
@@ -61,7 +62,7 @@ class Correios
      * @param string $new_status Mensagem do novo status
      * @param string $new_date Data da última mudança no status pelo correios
     **/
-    public function updateStatus(string $code, string $new_status, string $new_date):bool
+    public function updateStatus(string $code, string $new_status, string $new_date): bool
     {
         $code = trim($code);
         $sql = "UPDATE correios SET last_status = :new_date, content = :new_cnt WHERE code = :code";
@@ -73,7 +74,7 @@ class Correios
      * Verifica se já existe pelo menos um registro para o código informado na base de dados
      * @param string $code Código de rastreio correios
     **/
-    public function hasCode(string $code):bool
+    public function hasCode(string $code): bool
     {
         $code = trim($code);
         $sql = "SELECT code FROM correios WHERE code = :code";
@@ -81,7 +82,7 @@ class Correios
         return $this->Database->select($sql, $binds)->rowCount() > 0;
     }
 
-    public function addStatus(string $code, string $status, string $date):bool
+    public function addStatus(string $code, string $status, string $date): bool
     {
         $code = trim($code);
         $sql = "INSERT INTO correios (code, last_status, content) VALUES (:code, :last_status, :cnt)";
@@ -92,7 +93,7 @@ class Correios
     /**
      * Retorna lista de códigos dos Correios que precisam ser traqueados
     **/
-    public function needTrack(int $limit = 5):array
+    public function needTrack(int $limit = 5): array
     {
         $limit = (int) $limit;
         $sql = "SELECT code FROM track WHERE finished = :finished LIMIT $limit";
@@ -105,7 +106,7 @@ class Correios
         return $all_codes;
     }
 
-    public function removeTrack(string $code):bool
+    public function removeTrack(string $code): bool
     {
         $code = trim($code);
         $sql = "UPDATE track SET finished = :finished WHERE code = :code";

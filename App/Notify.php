@@ -21,7 +21,7 @@ class Notify
     }
 
 
-    public function senMail($subject, $body, $to_mail = null):bool
+    public function senMail($subject, $body, $to_mail = null): bool
     {
         $from_mail = $_ENV['SENDGRID_MAIL'];
         $from_name = $_ENV['PROJECT_NAME'];

@@ -1,5 +1,7 @@
 <?php
+
 namespace App;
+
 class SendGrid
 {
     private string $api_key;
@@ -7,14 +9,14 @@ class SendGrid
     {
         $this->api_key = $api_key;
     }
-    public function sendMail($from_name, $from_email, $to_name, $to_email, $subject, $body, $is_html = false):bool
+    public function sendMail($from_name, $from_email, $to_name, $to_email, $subject, $body, $is_html = false): bool
     {
-        if(empty($this->api_key)){
+        if(empty($this->api_key)) {
             // echo "Antes de chamar sendMail(), set uma chave API chamando setApiKey()<br>\n";
             return false;
         }
         $cnt_type = 'text/plain';
-        if($is_html){
+        if($is_html) {
             $cnt_type = 'text/html';
         }
         $apiKey = $this->api_key;
@@ -54,7 +56,7 @@ class SendGrid
         curl_exec($ch);
         $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
-        if($httpCode == 200 OR $httpCode == 202){
+        if($httpCode == 200 or $httpCode == 202) {
             return true;
         }
         return false;

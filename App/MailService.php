@@ -1,4 +1,5 @@
 <?php
+
 namespace App;
 
 ## Ainda não implementado
@@ -15,7 +16,7 @@ class MailService
      * Esse método envia e-mail
      * @return bool
      */
-    public function sendMail($api_key, $from_name, $from_email, $to_name, $to_email, $subject, $body, $is_html = false):bool
+    public function sendMail($api_key, $from_name, $from_email, $to_name, $to_email, $subject, $body, $is_html = false): bool
     {
         $Mail = new SendGrid(); // se for usar outro serviço crie a nova classe com o método sendMail
         $Mail->setApiKey($api_key);
